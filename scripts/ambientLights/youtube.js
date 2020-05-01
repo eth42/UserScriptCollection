@@ -2,7 +2,7 @@
 // @name         YouTube Ambient Light Generator
 // @namespace    https://youtube.com/
 // @version      1.0
-// @description  Ambient coloring for video stream pages
+// @description  Ambient background coloring for YouTube
 // @author       Erik Thordsen
 // @match        *www.youtube.com/*
 // @require      http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js
