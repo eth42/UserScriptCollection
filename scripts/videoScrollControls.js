@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Video Scroll Controls
 // @namespace    localhost
-// @version      2.0
+// @version      2.1
 // @description  Use your mouse wheel to change playback speed, volume and brightness of videos
 // @author       Erik Thordsen
 // @match        *://*/*
@@ -77,21 +77,28 @@
                 clearTimeout(timeoutId);
                 return setTimeout(genHideTagFun(tag), 500);
             };
+            var wheelDelta = 0;
+            /* If wheelDelta does not exist (cough, Firefox), replace it with deltaY */
+            if(!e.wheelDelta){
+                wheelDelta = (e.deltaY < 0 ? 1. : -1.);
+            }else{
+                wheelDelta = e.wheelDelta / 120.;
+            }
             if(e.shiftKey){
                 var speed = theVid.playbackRate;
-                if(e.wheelDelta > 0){
-                    speed *= 1+.025/120*e.wheelDelta;
-                }else if(e.wheelDelta < 0){
-                    speed *= 1/(1-.025/120*e.wheelDelta);
+                if(wheelDelta > 0){
+                    speed *= 1+.025*wheelDelta;
+                }else if(wheelDelta < 0){
+                    speed *= 1/(1-.025*wheelDelta);
                 }
                 theVid.playbackRate = 1.*speed.toFixed(5);
                 speedTag.innerHTML = "Speed: " + theVid.playbackRate.toFixed(2);
                 speedTimeoutId = activateTag(speedTag, speedTimeoutId);
             } else if (e.altKey) {
-                if(e.wheelDelta > 0){
-                    brightnessVal *= 1+.025/120*e.wheelDelta;
-                }else if(e.wheelDelta < 0){
-                    brightnessVal *= 1/(1-.025/120*e.wheelDelta);
+                if(wheelDelta > 0){
+                    brightnessVal *= 1+.025*wheelDelta;
+                }else if(wheelDelta < 0){
+                    brightnessVal *= 1/(1-.025*wheelDelta);
                 }
                 brightnessVal = 1.*brightnessVal.toFixed(5);
                 theVid.style.filter = "brightness("+brightnessVal+")";
@@ -100,8 +107,8 @@
                 brightnessTimeoutId = activateTag(brightnessTag, brightnessTimeoutId);
             } else {
                 var volume = theVid.volume;
-                if(e.wheelDelta != 0){
-                    volume = Math.max(0,Math.min(1,volume+.1/120*e.wheelDelta));
+                if(wheelDelta != 0){
+                    volume = Math.max(0,Math.min(1,volume+.1*wheelDelta));
                     theVid.muted = false;
                 }
                 theVid.volume = 1.*volume.toFixed(5);
