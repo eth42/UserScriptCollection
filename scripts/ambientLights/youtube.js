@@ -1,13 +1,13 @@
 // ==UserScript==
 // @name         YouTube Ambient Light Generator
 // @namespace    https://youtube.com/
-// @version      0.1
+// @version      1.0
 // @description  Ambient coloring for video stream pages
 // @author       Erik Thordsen
 // @match        *www.youtube.com/*
 // @require      http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js
-// @require      https://gist.github.com/raw/2625891/waitForKeyElements.js
-// @require      file://D:\workspace\web\Ambient Light\ambientLightGenerator.js
+// @require      https://raw.githubusercontent.com/eth42/UserScriptCollection/master/utils/waitForKeyElements.js
+// @require      https://raw.githubusercontent.com/eth42/UserScriptCollection/master/utils/ambientLightGenerator.js
 // @grant        GM_getValue
 // @grant        GM_setValue
 // @grant        GM_addValueChangeListener
