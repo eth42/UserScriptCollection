@@ -78,12 +78,13 @@
                 return setTimeout(genHideTagFun(tag), 500);
             };
             if(e.shiftKey){
+                var speed = theVid.playbackRate;
                 if(e.wheelDelta > 0){
-                    theVid.playbackRate *= 1+.025/120*e.wheelDelta;
+                    speed *= 1+.025/120*e.wheelDelta;
                 }else if(e.wheelDelta < 0){
-                    theVid.playbackRate *= 1/(1-.025/120*e.wheelDelta);
+                    speed *= 1/(1-.025/120*e.wheelDelta);
                 }
-                theVid.playbackRate = 1.*theVid.playbackRate.toFixed(5);
+                theVid.playbackRate = 1.*speed.toFixed(5);
                 speedTag.innerHTML = "Speed: " + theVid.playbackRate.toFixed(2);
                 speedTimeoutId = activateTag(speedTag, speedTimeoutId);
             } else if (e.altKey) {
@@ -98,11 +99,12 @@
                 brightnessTag.innerHTML = "Brightness: " + brightnessVal.toFixed(2);
                 brightnessTimeoutId = activateTag(brightnessTag, brightnessTimeoutId);
             } else {
+                var volume = theVid.volume;
                 if(e.wheelDelta != 0){
-                    theVid.volume = Math.max(0,Math.min(1,theVid.volume+.1/120*e.wheelDelta));
+                    volume = Math.max(0,Math.min(1,volume+.1/120*e.wheelDelta));
                     theVid.muted = false;
                 }
-                theVid.volume = 1.*theVid.volume.toFixed(5);
+                theVid.volume = 1.*volume.toFixed(5);
                 volTag.innerHTML = "Volume: " + (theVid.volume*100).toFixed(0);
                 volTimeoutId = activateTag(volTag, volTimeoutId);
             }
